@@ -1,5 +1,8 @@
 <?php
 
+require_once("database/Database.php");
+require_once("Configuration.php");
+
 require_once("products/controller/Controller.php");
 
 require_once("products/model/Product.php");
