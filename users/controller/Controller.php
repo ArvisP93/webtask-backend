@@ -3,6 +3,7 @@
 namespace users;
 
 use response\Response;
+use validation\NumberValidator;
 
 class Controller
 {
@@ -21,9 +22,23 @@ class Controller
     }
 
     public function selectUser() {
-        $id = $_GET["id"];
-        echo $id;
-        $this->response->make(true, $this->userRepository->oneUser((int)$id));
+        $error = new \validation\ErrorMessage();
+
+        if(isset($_GET['id'])) {
+            $id = $_GET["id"];
+
+            if (NumberValidator::validate($id)) {
+                $this->response->make(true, $this->userRepository->oneUser((int)$id));
+            } else {
+                $error->findErrors("wrongId", $id);
+                $this->response->make(true, $error->error());
+            }
+        }
+        else {
+            $error->findErrors("required", "");
+            $this->response->make(true, $error->error());
+        }
+
 
     }
 

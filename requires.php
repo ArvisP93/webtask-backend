@@ -14,6 +14,7 @@ require_once("response/ResponseXml.php");
 require_once("validation/Validator.php");
 require_once("validation/NumberValidator.php");
 require_once("validation/CountValidator.php");
+require_once ("validation/ErrorMessage.php");
 
 require_once("users/controller/Controller.php");
 

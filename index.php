@@ -18,15 +18,10 @@ switch ($_GET["data"]) {
         $userController->userList();
         break;
     case "user":
-        if(isset($_GET['id'])) {
-            $userRepo = new \users\InMemoryRepository();
-            $userResponse = new \response\ResponseJson();
-            $userController = new \users\Controller($userRepo, $userResponse);
-            $userController->selectUser();
-        }
-        else {
-            echo "To select one user, you have to give ID value";
-        }
+        $userRepo = new \users\InMemoryRepository();
+        $userResponse = new \response\ResponseJson();
+        $userController = new \users\Controller($userRepo, $userResponse);
+        $userController->selectUser();
         break;
     default :
         echo "Nothing to do";

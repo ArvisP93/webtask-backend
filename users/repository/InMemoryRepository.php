@@ -2,7 +2,10 @@
 
 namespace users;
 
+use validation\ErrorMessage;
+
 require_once ("users/repository/UserRepository.php");
+require_once ("validation/ErrorMessage.php");
 
 class InMemoryRepository implements UserRepository
 {
@@ -23,13 +26,23 @@ class InMemoryRepository implements UserRepository
     public function oneUser(int $id)
     {
         $allUsers = $this->obtainUsers();
+        $selectedUser = [];
+        $errors = new ErrorMessage();
 
         foreach ($allUsers as $array) {
-            foreach ($array as $key => $value) {
-                if($value->id == $id)
-                    return $value;
+            foreach ($array as $key => $user) {
+                if($user->id == $id) {
+                    array_push($selectedUser, $user);
+                }
             };
         }
-    }
+        if(count($selectedUser)==1) {
+            return $selectedUser;
+        }
+        else if (count($selectedUser)==0) {
 
+            $errors->findErrors("noUser", $id);
+            return $errors->error();
+        }
+    }
 }
