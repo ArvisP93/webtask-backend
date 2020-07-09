@@ -6,7 +6,7 @@ require_once("requires.php");
 
 switch ($_GET["data"]) {
     case "products":
-        $repo = new \products\InMemoryRepository();
+        $repo = new \products\DatabaseRepository();
         $response = new \response\ResponseJson();
         $controller = new \products\Controller($repo, $response);
         $controller->productList();

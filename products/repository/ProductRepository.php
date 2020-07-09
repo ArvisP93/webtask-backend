@@ -4,5 +4,5 @@ namespace products;
 
 interface ProductRepository
 {
-    function obtainProducts(int $count);
+    function obtainProducts(): array;
 }

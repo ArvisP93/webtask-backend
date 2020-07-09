@@ -3,8 +3,10 @@
 require_once("products/controller/Controller.php");
 
 require_once("products/model/Product.php");
+require_once("products/model/ProductDto.php");
 
 require_once("products/repository/InMemoryRepository.php");
+require_once("products/repository/DatabaseRepository.php");
 require_once("products/repository/ProductRepository.php");
 
 require_once("response/Response.php");

@@ -3,7 +3,6 @@
 namespace products;
 
 use response\Response;
-use validation\CountValidator;
 
 class Controller
 {
@@ -19,11 +18,11 @@ class Controller
 
     public function productList()
     {
-        $count = $_GET["count"];
-        if (CountValidator::validate($count)) {
-            $this->response->make(true, $this->productRepository->obtainProducts((int)$count));
-        } else {
-            echo "Property count with value: $count is invalid";
+        $products = new \stdClass();
+        $obtainedProducts = $this->productRepository->obtainProducts();
+        foreach ($obtainedProducts as $product) {
+            $products->products[] = $product->serialize();
         }
+        $this->response->make(true, $products);
     }
 }
