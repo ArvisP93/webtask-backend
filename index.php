@@ -12,7 +12,16 @@ switch ($_GET["data"]) {
         $controller->productList();
         break;
     case "users":
-        echo "something for users";
+        $userRepo = new \users\InMemoryRepository();
+        $userResponse = new \response\ResponseJson();
+        $userController = new \users\Controller($userRepo, $userResponse);
+        $userController->userList();
+        break;
+    case "user":
+        $userRepo = new \users\InMemoryRepository();
+        $userResponse = new \response\ResponseJson();
+        $userController = new \users\Controller($userRepo, $userResponse);
+        $userController->selectUser();
         break;
     default :
         echo "Nothing to do";

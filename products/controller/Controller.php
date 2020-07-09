@@ -7,8 +7,9 @@ use validation\CountValidator;
 
 class Controller
 {
-    private ProductRepository $productRepository;
     private Response $response;
+    private ProductRepository $productRepository;
+
 
     public function __construct(ProductRepository $products, Response $response)
     {
