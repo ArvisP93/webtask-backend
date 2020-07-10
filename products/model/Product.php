@@ -42,7 +42,7 @@ class Product
         return $this->sku;
     }
 
-    public function isDeleted(): bool
+    public function getDeleted(): bool
     {
         return $this->deleted;
     }

@@ -2,13 +2,13 @@
 
 namespace response;
 
-class ResponseXml implements Response
+class RequestResponseXml implements RequestResponse
 {
     public function __construct()
     {
     }
 
-    public function make(bool $status, $data): void
+    public function respond(bool $status, $data): void
     {
         echo "XML response";
     }

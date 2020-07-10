@@ -4,26 +4,41 @@ declare(strict_types=1);
 
 require_once("requires.php");
 
-switch ($_GET["data"]) {
-    case "products":
+switch (getRequestParam("command")) {
+    case "productlist":
         $repo = new \products\DatabaseRepository();
-        $response = new \response\ResponseJson();
+        $response = new \response\RequestResponseJson();
         $controller = new \products\Controller($repo, $response);
         $controller->productList();
         break;
-    case "users":
-        $userRepo = new \users\InMemoryRepository();
-        $userResponse = new \response\ResponseJson();
-        $userController = new \users\Controller($userRepo, $userResponse);
-        $userController->userList();
+    case "productcreate":
+        $repo = new \products\DatabaseRepository();
+        $response = new \response\RequestResponseJson();
+        $controller = new \products\Controller($repo, $response);
+        $controller->productCreate();
         break;
-    case "user":
-        $userRepo = new \users\InMemoryRepository();
-        $userResponse = new \response\ResponseJson();
-        $userController = new \users\Controller($userRepo, $userResponse);
-        $userController->selectUser();
+    case "productupdate":
+        $repo = new \products\DatabaseRepository();
+        $response = new \response\RequestResponseJson();
+        $controller = new \products\Controller($repo, $response);
+        $controller->productUpdate();
+        break;
+    case "productdelete":
+        $repo = new \products\DatabaseRepository();
+        $response = new \response\RequestResponseJson();
+        $controller = new \products\Controller($repo, $response);
+        $controller->productDelete();
         break;
     default :
         echo "Nothing to do";
         break;
+}
+
+function getRequestParam($paramName){
+    $paramValue = $_GET[$paramName] ?? null;
+    if (!$paramValue) {
+        $paramValue = $_POST[$paramName] ?? null;
+    }
+
+    return $paramValue;
 }

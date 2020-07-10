@@ -4,7 +4,7 @@ namespace validation;
 
 class NumberValidator implements Validator
 {
-    public static function validate($input): bool
+    public static function isValid($input): bool
     {
         return is_numeric($input);
     }

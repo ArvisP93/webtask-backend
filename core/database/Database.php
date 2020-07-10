@@ -127,9 +127,17 @@ class Database
         return $result;
     }
 
-    function insertInto($tableName, $values): bool
+    function insertInto($tableName, $values, $fields = []): bool
     {
-        $query = 'INSERT INTO ' . $tableName . ' VALUES (';
+        $query = 'INSERT INTO ' . $tableName;
+        if(count($fields)){
+            $query .= ' (';
+            foreach ($fields as $field){
+                $query .= $field . ',';
+            }
+            $query .= ')';
+        }
+        $query .= ' VALUES (';
         $i = 0;
         while (isset($values[$i]["val"]) && isset($values[$i]["type"])) {
             if ($values[$i]["type"] == "char") {
@@ -140,11 +148,10 @@ class Database
                 $query .= $values[$i]["val"];
             }
             $i++;
-            if (isset($values[$i]["val"])) {
-                $query .= ',';
-            }
+            $query .= ',';
         }
         $query .= ')';
+        $query = str_replace(',)', ')', $query);
         $result = $this->connection->query($query);
         return $result;
     }
@@ -163,6 +170,13 @@ class Database
         $query = "UPDATE {$tableName} SET {$set} WHERE id = {$id}";
         $result = $this->connection->query($query);
         return $result;
+    }
+
+    // example
+    public function simpleInsert($name, $price, $sku){
+        $this->connection->query(
+            "INSERT INTO products (name,price,sku) VALUES ('{$sku}',$price,'$sku')"
+        );
     }
 }
 

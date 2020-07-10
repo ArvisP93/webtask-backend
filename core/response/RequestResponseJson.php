@@ -2,12 +2,12 @@
 
 namespace response;
 
-class ResponseJson implements Response
+class RequestResponseJson implements RequestResponse
 {
     public bool $status;
     public $data;
 
-    public function make(bool $status, $data): void
+    public function respond(bool $status, $data): void
     {
         $this->setHeaders();
         $this->status = $status;
