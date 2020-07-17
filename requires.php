@@ -24,3 +24,5 @@ require_once("core/validation/CountValidator.php");
 require_once("core/validation/StringValidator.php");
 require_once("core/validation/SkuValidator.php");
 require_once("core/validation/ErrorMessage.php");
+require_once("core/TaskManager.php");
+require_once("core/App.php");
